@@ -11,9 +11,8 @@
   // props는 첫 번째이자 유일한 인자다.
   // props는 오브젝트다.
 
-  function Btn(props){ // props : Btn이 전달 받는 유일한 인자
-    console.log(props);
-    
+  function Btn({text, big}){ // props : Btn이 전달 받는 유일한 인자
+
     return (
       <button 
         style={{
@@ -22,9 +21,10 @@
           padding: '10px 20px',
           borderRadius: 10,
           border: 0,
+          fontSize: big ? 18 : 16
         }}
       >
-        {props.text}
+        {text}
       </button>
     )
   }
@@ -32,8 +32,8 @@
   function App(){
     return (
       <div>
-        <Btn text="Save Change" />
-        <Btn text="Confirm" />
+        <Btn text="Save Change" big={true} />
+        <Btn text="Confirm" big={false} />
       </div>
     )
   }

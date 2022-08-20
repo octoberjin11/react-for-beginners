@@ -8,8 +8,12 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
   // Props : 일종의 방식. 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법.
+  // props는 첫 번째이자 유일한 인자다.
+  // props는 오브젝트다.
 
-  function SaveBtn(){
+  function Btn(props){ // props : Btn이 전달 받는 유일한 인자
+    console.log(props);
+    
     return (
       <button 
         style={{
@@ -20,22 +24,7 @@
           border: 0,
         }}
       >
-        Save Changes
-      </button>
-    )
-  }
-  function ConfirmBtn(){
-    return (
-      <button 
-        style={{
-          backgroundColor: 'tomato',
-          color: "white",
-          padding: '10px 20px',
-          borderRadius: 10,
-          border: 0,
-        }}
-      >
-        Confirm
+        {props.text}
       </button>
     )
   }
@@ -43,8 +32,8 @@
   function App(){
     return (
       <div>
-        <SaveBtn />  
-        <ConfirmBtn />  
+        <Btn text="Save Change" />
+        <Btn text="Confirm" />
       </div>
     )
   }

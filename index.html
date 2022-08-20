@@ -11,17 +11,17 @@
   // props는 첫 번째이자 유일한 인자다.
   // props는 오브젝트다.
 
-  function Btn({text, big}){ // props : Btn이 전달 받는 유일한 인자
-
+  function Btn({text, onClick}){
     return (
       <button 
+        onClick={onClick}
         style={{
           backgroundColor: 'tomato',
           color: "white",
           padding: '10px 20px',
           borderRadius: 10,
           border: 0,
-          fontSize: big ? 18 : 16
+          fontSize: 14,
         }}
       >
         {text}
@@ -30,10 +30,15 @@
   }
 
   function App(){
+    const [value, setValue] = React.useState("Save Change");
+    const changeValue = () => setValue("Revert Changes");
+
+
+    //Btn onClick={changeValue} /> 이것은 이벤트 리스너를 붙인 것이 아닌, 컴포넌트에 onClick이라는 props를 전달한 것이다. 여기서 onClick은 단순히 props의 이름이다. onClick을 이벤트 리스너로 사용하고 싶다면 HTML 요소인 <button> 태그에 넣어야 한다. 차이점 분명히 알기!!! 지금은 HTML 요소가 아닌 컴포넌트에 onClick을 추가한 것이므로 이벤트 리스너가 아닌, props의 역할을 하는 것이다.
     return (
       <div>
-        <Btn text="Save Change" big={true} />
-        <Btn text="Confirm" big={false} />
+        <Btn text={value} onClick={changeValue} />
+        <Btn text="Confirm" />
       </div>
     )
   }

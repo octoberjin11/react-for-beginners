@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-  <span>Total Clicks: 0</span>
-  <button id="btn">Click me</button>
+  <div id="root"></div>
 </body>
-<script>
-  let counter = 0;
-  const button = document.getElementById("btn");
-  const span = document.querySelector("span");
-  function handleClick(){
-    counter = counter + 1;
-    span.innerText = `Total Clicks: ${counter}`;
-  };
-  button.addEventListener("click", handleClick)
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  // Props : 일종의 방식. 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법.
+
+  function SaveBtn(){
+    return (
+      <button 
+        style={{
+          backgroundColor: 'tomato',
+          color: "white",
+          padding: '10px 20px',
+          borderRadius: 10,
+          border: 0,
+        }}
+      >
+        Save Changes
+      </button>
+    )
+  }
+  function ConfirmBtn(){
+    return (
+      <button 
+        style={{
+          backgroundColor: 'tomato',
+          color: "white",
+          padding: '10px 20px',
+          borderRadius: 10,
+          border: 0,
+        }}
+      >
+        Confirm
+      </button>
+    )
+  }
+
+  function App(){
+    return (
+      <div>
+        <SaveBtn />  
+        <ConfirmBtn />  
+      </div>
+    )
+  }
+  const root = document.getElementById("root");
+  ReactDOM.render(<App />, root);
 </script>
 </html>

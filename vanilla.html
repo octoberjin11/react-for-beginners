@@ -2,31 +2,38 @@
 <html lang="en">
 <body>
   <div id="root"></div>
+  <style>
+    html { margin: 0 auto; padding:0; background: slategray}
+    .text_wrapper { width: 600px; height: 340px; border-radius: 5px; background: rgba(255,255,255,0.3); margin: 0 auto; margin-top: 100px; padding: 30px; text-align: center;}
+    select { width: 250px; height: 30px; border-radius: 5px; border-color: transparent; margin-bottom: 25px; }
+    .content { margin-top: 25px; }
+    .content label { display: inline-block; width: 100px; text-align: left; font-weight: bold; }
+    .content input { width: 150px; height: 25px; border-radius: 5px; border-color: transparent; margin: 5px;}
+    button { cursor: pointer; width: 120px; padding: 8px 12px; margin: 20px 10px; border-radius: 5px; border: none;}
+    button:hover { opacity: 0.9; transition: all 0.5s; }
+</style>
 </body>
 <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-  function App(){
+  function MinutesToHours(){
     const [amount, setAmount] = React.useState(0);
-    const [inverted, setInverted] = React.useState(false);
-
-    // const [state, setState] = React.useState();
-    // setState의 결과는 array 다. >> [state, setState]
-    // 첫 번째 요소는 데이터(state)이고, 두 번째 요소는 데이터를 수정하기 위한 함수(setState)다.
+    const [inverted, setInverted] = React.useState(false); //default값을 false로 설정
 
     const onChange = (event) => {
       setAmount(event.target.value);
     };
     const reset = () => setAmount(0);
+
+    // flipped 의 현재값을 받아서 그 반대의 값으로 바꿔줌
     const onInvert = () => {
       reset();
       setInverted((current) => !current);
     };
 
     return (
-      <div>
-        <h1>Super Converter</h1>
+      <div className="content">
         <div>
           <label htmlFor="minutes">Minutes</label>
           <input 
@@ -49,8 +56,62 @@
             disabled={!inverted}
           />
         </div>
-        <button onClick={reset}>Reset</button>
-        <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+        <button className="reset" onClick={reset}>Reset</button>
+        <button className="invert" onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+      </div>
+    )
+  }
+  function KmToMiles() {
+
+    const [amount, setAmount] = React.useState()
+
+    const [inverted, setInvert] = React.useState(false)
+    const onChange = (event) => {
+        setAmount(event.target.value);
+    };
+    const reset = () => setAmount(0);
+    const onInvert = () => {
+        reset();
+        setInvert((current) => !current);
+    }
+    return (
+        <div className="content">
+            <div>
+              <label htmlFor="km">Km</label>
+              <input value={ inverted ? Math.round(amount*1.609) : amount} id="km" placeholder="Km" type="number" onChange={onChange} disabled={inverted} />
+            </div>
+            <div>
+              <label htmlFor="miles">Miles</label>
+              <input value={ inverted ? amount : Math.round(amount/1.609) } id="miles" placeholder="Miles" type="number" onChange={onChange} disabled={!inverted} />
+            </div>
+            <button className="reset" onClick={reset}>Reset</button>
+            <button className="invert" onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+
+    );
+    }
+
+  function App(){
+    const [index, setIndex] = React.useState("--");
+    const onSelect = (event) => {
+      setIndex(event.target.value);
+    }
+    console.log("render w/", index);
+
+    return (
+      <div className="text_wrapper">
+        <h1 className="tit">Super Converter</h1>
+        <select value={index} onChange={onSelect}>
+          <option value="--">Select your unites</option>
+          <option value="0">Minutes & Hours</option>
+          <option value="1">Km & Miles</option>
+        </select>
+        <hr />
+        <div className="content">
+          {index === "--" ? "Please seslect your unites" : null}
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KmToMiles /> : null}
+        </div>
       </div>
     )
   }
